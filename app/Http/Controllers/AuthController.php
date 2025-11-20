@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+
 
 class AuthController extends Controller
 {
@@ -14,7 +17,7 @@ class AuthController extends Controller
         ]);
         $user= User::create(
             [
-                'name' =>$resquest->name,
+                'name' =>$request->name,
                 'email'=>$request->email,
                 'password'=>Hash::make($request->password)
 
