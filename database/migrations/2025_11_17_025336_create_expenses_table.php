@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('expenses', function (Blueprint $table) {
             $table->id();
             $table-> foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
-            $table->decimal ('expense_amount',12,2);
+            $table->string('expense_type');
+            $table->decimal('expense_amount',12,2);
             $table->string('expense_name');
+            $table->string('expense_category');
             $table->string('description');
-            $table->date('date');
             $table->timestamps();
         });
     }

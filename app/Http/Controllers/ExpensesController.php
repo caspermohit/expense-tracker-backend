@@ -35,12 +35,23 @@ class ExpensesController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate();
+       
+        $data = $request->validate(
+            [
+                'expense_type'=>'required|string|max:255',
+                'expense_amount'=>'required|numeric|min:0',
+                'expense_name'=>'required|string|max:255',
+                'description'=>'required|string',
+                'expense_category'=>'required|string|max:255',
+                
+
+                
+            ] );
         $data['user_id'] = $request->user()->id;
        
         $expense = Expenses::create($data);
         return response()->json ([
-            'message' => 'Expense created sucessfully',
+            'message' => 'Expense created successfully',
             
             'expense' => $expense
 
@@ -56,7 +67,7 @@ class ExpensesController extends Controller
      */
     public function show( $id)
     {
-        $expense = Expenses::where('user_id',auth()->id())->with('category')->findorFail($id);
+        $expense = Expenses::where('user_id',auth()->id())->with('expense_type')->findorFail($id);
         return response()->json (['message' => 'expense featured successfully','expense'=>$expense],200);
     }
 
